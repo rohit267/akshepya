@@ -12,12 +12,13 @@ app.use(express.urlencoded({ extended: true }));
 const authRoute = require('./routes/Auth');
 
 //static serve
-app.use(express.static(path.join(__dirname, "build", "index.html")));
+app.use(express.static(path.join(__dirname, "build")));
+app.use("/avatar", express.static('avatars'));
 //Auth route
 app.use('/auth', authRoute);
 
 app.listen(PORT, () => {
     console.log("\n<================================>");
-    console.log(`AkSepya listening on port ${PORT}`);
+    console.log(`AkSepya server listening on port ${PORT}`);
     console.log("<================================>\n");
 });

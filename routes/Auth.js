@@ -4,6 +4,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const upload = multer();
+const sharp = require("sharp");
+const fs = require('fs');
+const path = require('path');
 const { isValidEmail, isValidName, isValidPassword } = require("../utility/validate");
 const User = require('../models/User');
 
@@ -24,15 +27,25 @@ router.post('/signup', upload.single('avatar'), async (req, res) => {
             return;
         }
 
-        //compress image
-
-
-
         //check if already registered
         const oldUser = await User.findOne({ email });
         console.log("Old user===>", oldUser);
         if (oldUser) {
             return res.status(409).send({ status: "failed", error: "User Already Exist. Please Login." });
+        }
+
+        //compress image req.file
+        const avatarLocation = path.join("avatars", email + "-" + Date.now() + ".webp");
+        try {
+            const compAvatar = await sharp(req.file.buffer).resize(200, 200).toBuffer();
+            fs.writeFileSync(path.join(process.cwd(), avatarLocation), compAvatar);
+        }
+        catch (e) {
+            console.log("=============ERROR==============");
+            console.log(e);
+            console.log("=============ERROR==============");
+            res.status(500).end();
+            return;
         }
 
         //Encrypt user password
@@ -44,6 +57,7 @@ router.post('/signup', upload.single('avatar'), async (req, res) => {
                     fullName,
                     email: email.toLowerCase(), // sanitize: convert email to lowercase
                     password: hash,
+                    avatar: avatarLocation
                 });
 
                 console.log("User created==>", user);
