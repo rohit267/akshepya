@@ -8,7 +8,8 @@
     "server": "nodemon server",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build": "cd front-end && npm install && npm run build && cd ../",
-    "start": "node app"
+    "start": "node app",
+    "install": "npm install && cd front-end && npm install & cd ../"
   },
   "author": "Rohit Mahto",
   "license": "ISC",
