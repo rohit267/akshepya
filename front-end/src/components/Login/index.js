@@ -1,19 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Center, Container, Flex, Text } from '@chakra-ui/layout';
 import Logo from '../Logo'
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input';
 import { Button, IconButton } from '@chakra-ui/button';
-import { FaFacebook, FaGoogle, FaImage } from 'react-icons/fa';
+import { FaFacebook, FaGoogle } from 'react-icons/fa';
 import { HiMail, HiLockClosed } from 'react-icons/hi';
 import { IconContext } from "react-icons";
 import { useHistory } from 'react-router-dom';
+import { login } from '../../controllers/auth';
+import { useDispatch, useSelector } from 'react-redux'
 
 function Index(props) {
-
+    const dispatch = useDispatch();
     const history = useHistory();
+    const [email, setEmail] = useState({ value: "", error: false, errorMessage: "Please enter a valid email." });
+    const [password, setPassword] = useState({ value: "", error: false, errorMessage: "Please enter strong password." });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [formError, setFormError] = useState("");
 
-    function handleSubmit(e) {
+    function onEmailChange(e) {
+        setEmail(s => ({ ...s, value: e.target.value }));
+    }
+
+    function onPasswordChange(e) {
+        setPassword(s => ({ ...s, value: e.target.value, error: e.target.value.length >= 8 ? false : true }));
+    }
+
+    async function handleSubmit(e) {
         e.preventDefault();
+        setIsSubmitting(true);
+        setFormError("");
+        let res = await login({ email: email.value, password: password.value }, dispatch);
+        if (res.status) {
+            history.push("/");
+        }
+        else {
+            setFormError(res.error)
+        }
+        setIsSubmitting(false);
+
     }
 
     return (
@@ -37,7 +62,7 @@ function Index(props) {
                                         top='5px'
                                         children={<MIconProvider> <HiMail size='28px' /></MIconProvider>}
                                     />
-                                    <Input required color='black.800' borderColor='cyan.300' bgColor='#fff' focusBorderColor='cyan.600' type='email' size="lg" placeholder='Email' />
+                                    <Input value={email.value} onChange={onEmailChange} required color='black.800' borderColor='cyan.300' bgColor='#fff' focusBorderColor='cyan.600' type='email' size="lg" placeholder='Email' />
                                 </InputGroup>
 
                             </Center>
@@ -50,7 +75,7 @@ function Index(props) {
                                         top='5px'
                                         children={<MIconProvider> <HiLockClosed size='28px' /></MIconProvider>}
                                     />
-                                    <Input required minLength="8" borderColor='cyan.300' bgColor='#fff' focusBorderColor='cyan.600' type='password' size="lg" placeholder='Password' />
+                                    <Input value={password.value} onChange={onPasswordChange} required minLength="8" borderColor='cyan.300' bgColor='#fff' focusBorderColor='cyan.600' type='password' size="lg" placeholder='Password' />
                                 </InputGroup>
                             </Center>
                             <Center>
@@ -60,9 +85,10 @@ function Index(props) {
                                     <IconButton icon={<FaFacebook />} />
                                 </Flex>
                             </Center>
+                            <Text ml='9' mr='7' color='red'>{formError ? formError : ""}</Text>
                             <Flex mt='6' ml='7' mr='7' justifyContent='space-between'>
                                 <Text fontWeight='semibold' onClick={() => props.toggleIsLogin(false)} cursor='pointer' color='cyan.600'>Create account</Text>
-                                <Button type='submit'>Submit</Button>
+                                <Button isLoading={isSubmitting} type='submit'>Submit</Button>
                             </Flex>
                         </Box>
                     </Box>

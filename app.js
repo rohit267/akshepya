@@ -1,6 +1,7 @@
 require("dotenv").config();
 require('./configs/database').connect();
 const express = require("express");
+const cookieParser = require("cookie-parser");
 const app = express();
 const path = require('path');
 const PORT = process.env.PORT;
@@ -8,6 +9,7 @@ const PORT = process.env.PORT;
 //body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 const authRoute = require('./routes/Auth');
 

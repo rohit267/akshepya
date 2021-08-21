@@ -99,17 +99,24 @@ router.post('/login', async (req, res) => {
                     throw err;
                 }
                 else {
-                    console.log("Compare Data====>", data);
                     if (data) {
-                        const token = jwt.sign(
-                            { user_id: user._id, email },
-                            process.env.TOKEN_KEY,
-                            { expiresIn: "2h" }
+                        const accessToken = jwt.sign(
+                            {
+                                email,
+                                name: user.name,
+                            },
+                            process.env.JWT_KEY,
+                            { expiresIn: "3h" }
                         );
-
-                        console.log("JWT Generated===>", token);
-
-                        res.status(200).json({ status: "success", data: { email: user.email, name: user.fullName, token: token } });
+                        const refreshToken = jwt.sign(
+                            {
+                                email,
+                            },
+                            process.env.JWT_KEY,
+                            { expiresIn: "10d" }
+                        );
+                        res.cookie('_refresh', refreshToken, { maxAge: 10 * 24 * 60 * 60, httpOnly: true });
+                        res.status(200).json({ status: "success", data: { accessToken } });
                     }
                     else {
                         res.status(400).send({ status: "failed", error: "Wrong password" });

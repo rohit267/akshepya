@@ -2,18 +2,14 @@ import React, { useState } from 'react';
 import { Box, Center, Container, Flex, Text } from '@chakra-ui/layout';
 import Logo from '../Logo'
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input';
-import { FormErrorMessage } from '@chakra-ui/react'
 import { Button } from '@chakra-ui/button';
 import { FaUser } from 'react-icons/fa';
 import { HiMail, HiLockClosed } from 'react-icons/hi';
 import { IconContext } from "react-icons";
-import { useHistory } from 'react-router-dom';
-import { signup } from '../../controllers/auth'
-
+import { signup } from '../../controllers/auth';
 
 function Index(props) {
 
-    const history = useHistory();
     const [name, setName] = useState({ value: "", error: false, errorMessage: "Please enter a valid name." });
     const [email, setEmail] = useState({ value: "", error: false, errorMessage: "Please enter a valid email." });
     const [password, setPassword] = useState({ value: "", error: false, errorMessage: "Please enter strong password." });

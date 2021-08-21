@@ -12,15 +12,15 @@ export const counterSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        login: (state, action) => {
-            const { name, email, accessToken } = action;
+        Login: (state, action) => {
+            const { name, accessToken, email, loggedAt } = action.payload;
             state.accessToken = accessToken;
             state.name = name;
             state.email = email;
-            state.loggedAt = Math.floor(new Date.now() / 1000);
+            state.loggedAt = loggedAt;
             state.isLoggedIn = true;
         },
-        logout: (state) => {
+        Logout: (state) => {
             state.accessToken = "";
             state.name = "";
             state.email = "";
@@ -30,6 +30,6 @@ export const counterSlice = createSlice({
     },
 })
 
-export const { login, logout } = counterSlice.actions
+export const { Login, Logout } = counterSlice.actions
 
 export default counterSlice.reducer
