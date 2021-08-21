@@ -5,9 +5,11 @@ Open source Q&amp;A platform built using Node.js, React.js, MongoDB.
 ## How to setup?
 
     1. Clone the repo.
-    2. Open terminal
-    3. Type `npm rum install`, it will install all backend and frontend dependencies.
-    4. Type `npm run dev`, it will start the both backend and frontend development server.
+    2. Add one `.env` file on root directory.
+    3. Add `PORT=5000`, `DB_URL` and `JWT_KEY` environment variables. Please use your own `DB_URL` and `JWT_KEY`.
+    4. Open terminal
+    5. Type `npm rum install`, it will install all backend and frontend dependencies.
+    6. Type `npm run dev`, it will start the both backend and frontend development server.
 
 ## Major Libraries used:
 
