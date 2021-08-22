@@ -18,5 +18,6 @@ Open source Q&amp;A platform built using Node.js, React.js, MongoDB.
     3. Express.js
     4. Chkra-ui
     5. Mongoose
+    6. Redux Toolkit
 
 Wanna help? We need helping hands. Please contribute.
