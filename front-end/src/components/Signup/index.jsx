@@ -115,7 +115,9 @@ function Index(props) {
                                 </InputGroup>
 
                             </Center>
-                            <Text ml='9' mr='7' color='red'>{formError ? formError : ""}</Text>
+                            <Center>
+                                <Text ml='9' mr='7' color='red'>{formError ? formError : ""}</Text>
+                            </Center>
                             <Flex mt='6' ml='7' mr='7' justifyContent='space-between'>
                                 <Text onClick={() => props.toggleIsLogin(true)} cursor='pointer' fontWeight='semibold' color='cyan.600'>Already have an account?</Text>
                                 <Button isLoading={isSubmitting} type='submit'>Submit</Button>

@@ -85,7 +85,9 @@ function Index(props) {
                                     <IconButton icon={<FaFacebook />} />
                                 </Flex>
                             </Center>
-                            <Text ml='9' mr='7' color='red'>{formError ? formError : ""}</Text>
+                            <Center>
+                                <Text position='relative' top='12px' ml='9' mr='7' color='red'>{formError ? formError : ""}</Text>
+                            </Center>
                             <Flex mt='6' ml='7' mr='7' justifyContent='space-between'>
                                 <Text fontWeight='semibold' onClick={() => props.toggleIsLogin(false)} cursor='pointer' color='cyan.600'>Create account</Text>
                                 <Button isLoading={isSubmitting} type='submit'>Submit</Button>
