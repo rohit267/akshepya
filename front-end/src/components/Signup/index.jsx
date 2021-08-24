@@ -7,15 +7,16 @@ import { FaUser } from 'react-icons/fa';
 import { HiMail, HiLockClosed } from 'react-icons/hi';
 import { IconContext } from "react-icons";
 import { signup } from '../../controllers/auth';
+import { isEmailValid, isNameValid, isPasswordValid } from '../../utility/inputValidation'
 
 function Index(props) {
 
-    const [name, setName] = useState({ value: "", error: false, errorMessage: "Please enter a valid name." });
-    const [email, setEmail] = useState({ value: "", error: false, errorMessage: "Please enter a valid email." });
-    const [password, setPassword] = useState({ value: "", error: false, errorMessage: "Please enter strong password." });
-    const [avatar, setAvatar] = useState({ value: undefined, error: false, errorMessage: "Please choose an avatar." });
+    const [name, setName] = useState({ value: "", errorMessage: "Please enter a valid name." });
+    const [email, setEmail] = useState({ value: "", errorMessage: "Please enter a valid email." });
+    const [password, setPassword] = useState({ value: "", errorMessage: "Please enter strong password." });
+    const [avatar, setAvatar] = useState({ value: undefined, errorMessage: "Please choose an avatar." });
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [formError, setFormError] = useState("");
+    const [formErrorMsg, setFormErrorMsg] = useState("");
 
     function onNameChange(e) {
         setName(s => ({ ...s, value: e.target.value }));
@@ -26,15 +27,35 @@ function Index(props) {
     }
 
     function onPasswordChange(e) {
-        setPassword(s => ({ ...s, value: e.target.value, error: e.target.value.length >= 8 ? false : true }));
+        setPassword(s => ({ ...s, value: e.target.value }));
     }
 
     function onAvatarChange(e) {
         setAvatar(s => ({ ...s, value: e.target.files[0] }));
     }
 
+    function isFormValid() {
+        if(!isNameValid(name.value)) {
+            setFormErrorMsg(name.errorMessage)
+            return false;
+        }
+        if(!isEmailValid(email.value)) {
+            setFormErrorMsg(email.errorMessage)
+            return false;
+        }
+        if(!isPasswordValid(password.value)) {
+            setFormErrorMsg(password.errorMessage)
+            return false;
+        }
+        setFormErrorMsg("");
+        return true;
+    }
+
     async function handleSubmit(e) {
         e.preventDefault();
+        if(!isFormValid()) {
+            return;
+        }
         let singupPayload = {
             fullName: name.value,
             email: email.value,
@@ -43,16 +64,16 @@ function Index(props) {
         }
         setIsSubmitting(true);
         let res = await signup(singupPayload);
-        setFormError("");
+        setFormErrorMsg("");
         if (res.status) {
-            setFormError("Signup success, login to continue");
+            setFormErrorMsg("Signup success, login to continue");
             setName(s => ({ ...s, value: "" }));
             setEmail(s => ({ ...s, value: "" }));
             setPassword(s => ({ ...s, value: "" }));
             e.target.reset();
         }
         else {
-            setFormError(res.error);
+            setFormErrorMsg(res.error);
         }
         setIsSubmitting(false);
     }
@@ -115,7 +136,9 @@ function Index(props) {
                                 </InputGroup>
 
                             </Center>
-                            <Text ml='9' mr='7' color='red'>{formError ? formError : ""}</Text>
+                            <Center>
+                                <Text ml='9' mr='7' color='red'>{formErrorMsg ? formErrorMsg : ""}</Text>
+                            </Center>
                             <Flex mt='6' ml='7' mr='7' justifyContent='space-between'>
                                 <Text onClick={() => props.toggleIsLogin(true)} cursor='pointer' fontWeight='semibold' color='cyan.600'>Already have an account?</Text>
                                 <Button isLoading={isSubmitting} type='submit'>Submit</Button>

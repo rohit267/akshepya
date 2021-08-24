@@ -9,33 +9,50 @@ import { IconContext } from "react-icons";
 import { useHistory } from 'react-router-dom';
 import { login } from '../../controllers/auth';
 import { useDispatch, useSelector } from 'react-redux'
+import { isEmailValid, isPasswordValid } from '../../utility/inputValidation'
 
 function Index(props) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const [email, setEmail] = useState({ value: "", error: false, errorMessage: "Please enter a valid email." });
-    const [password, setPassword] = useState({ value: "", error: false, errorMessage: "Please enter strong password." });
+    const [email, setEmail] = useState({ value: "", errorMessage: "Please enter a valid email." });
+    const [password, setPassword] = useState({ value: "", errorMessage: "Invalid Password" });
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [formError, setFormError] = useState("");
+    const [formErrorMsg, setFormErrorMsg] = useState("");
 
     function onEmailChange(e) {
         setEmail(s => ({ ...s, value: e.target.value }));
     }
 
     function onPasswordChange(e) {
-        setPassword(s => ({ ...s, value: e.target.value, error: e.target.value.length >= 8 ? false : true }));
+        setPassword(s => ({ ...s, value: e.target.value }));
+    }
+
+    function isFormValid() {
+
+        if(!isEmailValid(email.value)) {
+            setFormErrorMsg(email.errorMessage)
+            return false;
+        }
+        if(!isPasswordValid(password.value)) {
+            setFormErrorMsg(password.errorMessage)
+            return false;
+        }
+        setFormErrorMsg("");
+        return true;
     }
 
     async function handleSubmit(e) {
         e.preventDefault();
+        if(!isFormValid()) {
+            return;
+        }
         setIsSubmitting(true);
-        setFormError("");
         let res = await login({ email: email.value, password: password.value }, dispatch);
         if (res.status) {
             history.push("/");
         }
         else {
-            setFormError(res.error)
+            setFormErrorMsg(res.error)
         }
         setIsSubmitting(false);
 
@@ -85,7 +102,9 @@ function Index(props) {
                                     <IconButton icon={<FaFacebook />} />
                                 </Flex>
                             </Center>
-                            <Text ml='9' mr='7' color='red'>{formError ? formError : ""}</Text>
+                            <Center>
+                                <Text position='relative' top='12px' ml='9' mr='7' color='red'>{formErrorMsg ? formErrorMsg : ""}</Text>
+                            </Center>
                             <Flex mt='6' ml='7' mr='7' justifyContent='space-between'>
                                 <Text fontWeight='semibold' onClick={() => props.toggleIsLogin(false)} cursor='pointer' color='cyan.600'>Create account</Text>
                                 <Button isLoading={isSubmitting} type='submit'>Submit</Button>
