@@ -14,7 +14,10 @@ module.exports = {
     isValidPassword: function isValidPassword(password) {
         let isValid = true;
         if (!password) isValid = false;
-        if (password.length < 8) isValid = false;
+        if (password.length < 8) {
+            console.log(password, password.length)
+            isValid = false;
+        }
         return isValid;
     }
 }

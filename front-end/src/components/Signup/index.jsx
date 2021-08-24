@@ -13,7 +13,7 @@ function Index(props) {
 
     const [name, setName] = useState({ value: "", errorMessage: "Please enter a valid name." });
     const [email, setEmail] = useState({ value: "", errorMessage: "Please enter a valid email." });
-    const [password, setPassword] = useState({ value: "", errorMessage: "Please enter strong password." });
+    const [password, setPassword] = useState({ value: "", errorMessage: "Please enter least one letter, one number and one special character on password." });
     const [avatar, setAvatar] = useState({ value: undefined, errorMessage: "Please choose an avatar." });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formErrorMsg, setFormErrorMsg] = useState("");
@@ -35,15 +35,15 @@ function Index(props) {
     }
 
     function isFormValid() {
-        if(!isNameValid(name.value)) {
+        if (!isNameValid(name.value)) {
             setFormErrorMsg(name.errorMessage)
             return false;
         }
-        if(!isEmailValid(email.value)) {
+        if (!isEmailValid(email.value)) {
             setFormErrorMsg(email.errorMessage)
             return false;
         }
-        if(!isPasswordValid(password.value)) {
+        if (!isPasswordValid(password.value)) {
             setFormErrorMsg(password.errorMessage)
             return false;
         }
@@ -53,7 +53,7 @@ function Index(props) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        if(!isFormValid()) {
+        if (!isFormValid()) {
             return;
         }
         let singupPayload = {

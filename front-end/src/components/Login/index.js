@@ -15,7 +15,7 @@ function Index(props) {
     const dispatch = useDispatch();
     const history = useHistory();
     const [email, setEmail] = useState({ value: "", errorMessage: "Please enter a valid email." });
-    const [password, setPassword] = useState({ value: "", errorMessage: "Invalid Password" });
+    const [password, setPassword] = useState({ value: "", errorMessage: "Please enter least one letter, one number and one special character on password." });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formErrorMsg, setFormErrorMsg] = useState("");
 
@@ -29,11 +29,11 @@ function Index(props) {
 
     function isFormValid() {
 
-        if(!isEmailValid(email.value)) {
+        if (!isEmailValid(email.value)) {
             setFormErrorMsg(email.errorMessage)
             return false;
         }
-        if(!isPasswordValid(password.value)) {
+        if (!isPasswordValid(password.value)) {
             setFormErrorMsg(password.errorMessage)
             return false;
         }
@@ -43,7 +43,7 @@ function Index(props) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        if(!isFormValid()) {
+        if (!isFormValid()) {
             return;
         }
         setIsSubmitting(true);
