@@ -104,6 +104,7 @@ router.post('/login', async (req, res) => {
                             {
                                 email,
                                 name: user.name,
+                                avatar: user.avatar
                             },
                             process.env.JWT_KEY,
                             { expiresIn: "3h" }
