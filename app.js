@@ -15,7 +15,7 @@ const authRoute = require('./routes/Auth');
 
 //static serve
 app.use(express.static(path.join(__dirname, "build")));
-app.use("/avatar", express.static('avatars'));
+app.use("/avatars", express.static('avatars'));
 //Auth route
 app.use('/auth', authRoute);
 
