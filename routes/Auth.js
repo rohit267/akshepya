@@ -64,11 +64,27 @@ router.post('/signup', upload.single('avatar'), async (req, res) => {
 
                 user.save((err) => {
                     if (err) throw err;
-                    res.status(200).send({ status: "success", message: "Successfully registered user: " + email });
+
+                    const accessToken = jwt.sign(
+                        {
+                            email: user.email,
+                            name: user.name,
+                        },
+                        process.env.JWT_KEY,
+                        { expiresIn: "3h" }
+                    );
+                    const refreshToken = jwt.sign(
+                        {
+                            email: user.email,
+                        },
+                        process.env.JWT_KEY,
+                        { expiresIn: "10d" }
+                    );
+                    res.cookie('_refresh', refreshToken, { maxAge: 10 * 24 * 60 * 60, httpOnly: true });
+                    res.status(200).send({ status: "success", message: "Successfully registered user: " + email, data: { accessToken } });
                 });
             });
         });
-
 
     } catch (err) {
         console.log(err);

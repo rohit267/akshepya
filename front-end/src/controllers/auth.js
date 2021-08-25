@@ -2,7 +2,7 @@ import axios from 'axios';
 import { API } from '../configs/api';
 import { Login } from '../reduxStore/auth'
 
-export async function signup({ fullName, email, password, avatar }) {
+export async function signup({ fullName, email, password, avatar }, dispatch) {
 
     let signupFomData = new FormData();
     signupFomData.append('fullName', fullName);
@@ -17,6 +17,15 @@ export async function signup({ fullName, email, password, avatar }) {
             });
 
         if (response.status === 200) {
+            const accessToken = response.data.data.accessToken;
+            let tmepUserData = JSON.parse(Buffer.from(accessToken.split('.')[1], 'base64').toString('ascii'));
+            dispatch(Login({
+                name: tmepUserData.name,
+                accessToken: accessToken,
+                email: tmepUserData.email,
+                loggedAt: tmepUserData.iat,
+                isLoggedIn: true
+            }))
             return { status: true };
         }
         else {
