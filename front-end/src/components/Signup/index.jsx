@@ -6,11 +6,14 @@ import { Button } from '@chakra-ui/button';
 import { FaUser } from 'react-icons/fa';
 import { HiMail, HiLockClosed } from 'react-icons/hi';
 import { IconContext } from "react-icons";
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom';
 import { signup } from '../../controllers/auth';
 import { isEmailValid, isNameValid, isPasswordValid } from '../../utility/inputValidation'
 
 function Index(props) {
-
+    const history = useHistory();
+    const dispatch = useDispatch();
     const [name, setName] = useState({ value: "", errorMessage: "Please enter a valid name." });
     const [email, setEmail] = useState({ value: "", errorMessage: "Please enter a valid email." });
     const [password, setPassword] = useState({ value: "", errorMessage: "Please enter least one letter, one number and one special character on password." });
@@ -63,14 +66,10 @@ function Index(props) {
             avatar: avatar.value
         }
         setIsSubmitting(true);
-        let res = await signup(singupPayload);
+        let res = await signup(singupPayload,dispatch);
         setFormErrorMsg("");
         if (res.status) {
-            setFormErrorMsg("Signup success, login to continue");
-            setName(s => ({ ...s, value: "" }));
-            setEmail(s => ({ ...s, value: "" }));
-            setPassword(s => ({ ...s, value: "" }));
-            e.target.reset();
+            history.push("/");
         }
         else {
             setFormErrorMsg(res.error);
