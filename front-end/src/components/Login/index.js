@@ -8,7 +8,7 @@ import { HiMail, HiLockClosed } from 'react-icons/hi';
 import { IconContext } from "react-icons";
 import { useHistory } from 'react-router-dom';
 import { login } from '../../controllers/auth';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux';
 import { isEmailValid, isPasswordValid } from '../../utility/inputValidation'
 
 function Index(props) {

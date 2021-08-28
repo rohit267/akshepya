@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
+import SecureStorage from '../utility/secureStorage';
 
 const initialState = {
     name: "",
@@ -21,6 +22,7 @@ export const counterSlice = createSlice({
             state.avatar = avatar;
             state.loggedAt = loggedAt;
             state.isLoggedIn = true;
+            SecureStorage.set("_AkShepyaSession", { isLoggedIn: true });
         },
         Logout: (state) => {
             state.accessToken = "";
@@ -28,6 +30,7 @@ export const counterSlice = createSlice({
             state.email = "";
             state.loggedAt = "";
             state.isLoggedIn = false;
+            SecureStorage.clear();
         }
     },
 })

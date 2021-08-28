@@ -9,6 +9,8 @@ const fs = require('fs');
 const path = require('path');
 const { isValidEmail, isValidName, isValidPassword } = require("../utility/validate");
 const User = require('../models/User');
+const Encryptor = require('../utility/crypto');
+const enc = new Encryptor("9y$B&E)H+MbQeThWmZq4t7w!z%C*F-Ja");
 
 router.post('/signup', upload.single('avatar'), async (req, res) => {
     try {
@@ -35,6 +37,10 @@ router.post('/signup', upload.single('avatar'), async (req, res) => {
         }
 
         //compress image req.file
+        const avatarsDir = 'avatars';
+        if (!fs.existsSync(avatarsDir)) {
+            fs.mkdirSync(avatarsDir);
+        }
         const avatarLocation = path.join("avatars", email + "-" + Date.now() + ".webp");
         try {
             const compAvatar = await sharp(req.file.buffer).resize(200, 200).toBuffer();
@@ -64,23 +70,8 @@ router.post('/signup', upload.single('avatar'), async (req, res) => {
 
                 user.save((err) => {
                     if (err) throw err;
-
-                    const accessToken = jwt.sign(
-                        {
-                            email: user.email,
-                            name: user.name,
-                            avatar: user.avatar
-                        },
-                        process.env.JWT_KEY,
-                        { expiresIn: "3h" }
-                    );
-                    const refreshToken = jwt.sign(
-                        {
-                            email: user.email,
-                        },
-                        process.env.JWT_KEY,
-                        { expiresIn: "10d" }
-                    );
+                    let { accessToken, refreshToken } = generateLoginJwt(false, { email: user.email, name: user.name, avatar: user.avatar });
+                    refreshToken = enc.encrypt(refreshToken);
                     res.cookie('_refresh', refreshToken, { maxAge: 10 * 24 * 60 * 60, httpOnly: true });
                     res.status(200).send({ status: "success", message: "Successfully registered user: " + email, data: { accessToken } });
                 });
@@ -117,22 +108,8 @@ router.post('/login', async (req, res) => {
                 }
                 else {
                     if (data) {
-                        const accessToken = jwt.sign(
-                            {
-                                email,
-                                name: user.name,
-                                avatar: user.avatar
-                            },
-                            process.env.JWT_KEY,
-                            { expiresIn: "3h" }
-                        );
-                        const refreshToken = jwt.sign(
-                            {
-                                email,
-                            },
-                            process.env.JWT_KEY,
-                            { expiresIn: "10d" }
-                        );
+                        let { accessToken, refreshToken } = generateLoginJwt(false, { email, name: user.name, avatar: user.avatar });
+                        refreshToken = enc.encrypt(refreshToken);
                         res.cookie('_refresh', refreshToken, { maxAge: 10 * 24 * 60 * 60, httpOnly: true });
                         res.status(200).json({ status: "success", data: { accessToken } });
                     }
@@ -152,5 +129,39 @@ router.post('/login', async (req, res) => {
         res.status(500).send("Internal server error");
     }
 });
+
+router.post("/reauth", (req, res) => {
+    let refreshToken = req.cookies._refresh;
+    if (refreshToken) refreshToken = enc.dencrypt(refreshToken);
+    // Verify JWT Token
+    jwt.verify(refreshToken, process.env.JWT_KEY, (err, verifiedJwt) => {
+        if (err) {
+            res.send({ status: "falied", error: "Invalid credentials" })
+        } else {
+            // console.log(verifiedJwt.email);
+            if (verifiedJwt.email) {
+                let { accessToken } = generateLoginJwt(true, verifiedJwt);
+                res.status(200).json({ status: "success", data: { accessToken } });
+            }
+        }
+    })
+});
+
+function generateLoginJwt(isRefreshRoute, { email, name, avatar }) {
+    const accessToken = jwt.sign(
+        { email, name, avatar },
+        process.env.JWT_KEY,
+        { expiresIn: "3h" }
+    );
+    if (!isRefreshRoute) {
+        let refreshToken = jwt.sign(
+            { email, name, avatar },
+            process.env.JWT_KEY,
+            { expiresIn: "10d" }
+        );
+        return { accessToken, refreshToken }
+    }
+    return { accessToken };
+}
 
 module.exports = router;
