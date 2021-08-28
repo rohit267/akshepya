@@ -69,6 +69,7 @@ router.post('/signup', upload.single('avatar'), async (req, res) => {
                         {
                             email: user.email,
                             name: user.name,
+                            avatar: user.avatar
                         },
                         process.env.JWT_KEY,
                         { expiresIn: "3h" }
@@ -120,6 +121,7 @@ router.post('/login', async (req, res) => {
                             {
                                 email,
                                 name: user.name,
+                                avatar: user.avatar
                             },
                             process.env.JWT_KEY,
                             { expiresIn: "3h" }

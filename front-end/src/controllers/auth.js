@@ -23,6 +23,7 @@ export async function signup({ fullName, email, password, avatar }, dispatch) {
                 name: tmepUserData.name,
                 accessToken: accessToken,
                 email: tmepUserData.email,
+                avatar: tmepUserData.avatar,
                 loggedAt: tmepUserData.iat,
                 isLoggedIn: true
             }))
@@ -56,6 +57,7 @@ export async function login({ email, password }, dispatch) {
                 name: tmepUserData.name,
                 accessToken: accessToken,
                 email: tmepUserData.email,
+                avatar: tmepUserData.avatar,
                 loggedAt: tmepUserData.iat,
                 isLoggedIn: true
             }))
