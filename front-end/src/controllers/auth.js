@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API } from '../configs/api';
-import { Login } from '../reduxStore/auth';
+import { Login,Logout } from '../reduxStore/auth';
 
 export async function signup({ fullName, email, password, avatar }, dispatch) {
 
@@ -77,6 +77,10 @@ export async function loginFromRefreshToken(dispatch) {
         console.error("Auth error: " + e);
         return { status: false, error: 'Something went wrong!' };
     }
+}
+
+export async function executeLogout(dispatch){
+    dispatch(Logout());
 }
 
 function executeLogin(accessToken, dispatch) {
