@@ -14,6 +14,7 @@ const enc = new Encryptor("9y$B&E)H+MbQeThWmZq4t7w!z%C*F-Ja");
 
 router.post('/signup', upload.single('avatar'), async (req, res) => {
     try {
+        console.log("Signup body: ", req.body);
         const { fullName, email, password } = req.body;
         const avatar = req.file;
 
@@ -60,7 +61,7 @@ router.post('/signup', upload.single('avatar'), async (req, res) => {
                 console.log("Password encrypted====>", hash);
                 // Create user in our database
                 const user = new User({
-                    fullName,
+                    name: fullName,
                     email: email.toLowerCase(), // sanitize: convert email to lowercase
                     password: hash,
                     avatar: avatarLocation
@@ -100,7 +101,7 @@ router.post('/login', async (req, res) => {
         }
 
         const user = await User.findOne({ email });
-
+        console.log("User:",user);
         if (user) {
             bcrypt.compare(password, user.password, (err, data) => {
                 if (err) {
@@ -147,7 +148,13 @@ router.post("/reauth", (req, res) => {
     })
 });
 
+router.get('/logout',(req,res)=>{
+    res.cookie('_refresh', "", { maxAge: 0, httpOnly: true });
+    res.end();
+});
+
 function generateLoginJwt(isRefreshRoute, { email, name, avatar }) {
+    console.log("Name:",name);
     const accessToken = jwt.sign(
         { email, name, avatar },
         process.env.JWT_KEY,
