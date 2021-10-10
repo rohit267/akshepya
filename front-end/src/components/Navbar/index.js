@@ -4,7 +4,8 @@ import { FaSearch, FaUser } from 'react-icons/fa';
 import SearchBox from '../SearchBox';
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
-import AvatarBox from '../AvatarHoverBox'
+import AvatarBox from '../AvatarHoverBox';
+import Logo from "../Logo/index";
 
 function Index(props) {
     const [searchVisible, tootleSearch] = useState(false);
@@ -15,7 +16,8 @@ function Index(props) {
     return (
         <Flex p='16px' boxShadow="0px 1px 8px #b9b9b9">
             {/* <Container> */}
-            <Heading ml="8" fontSize='24px' fontWeight='semibold' size='md' color='cyan.600' >AkSepya</Heading>
+            <Logo width="80px"/>
+                
             <Spacer />
             { user.isLoggedIn ? (
                 <Image onClick={(e)=>setAvatarVisible(!avatarBoxVisible)} src={user.avatar} boxSize="40px" borderRadius="full"/>

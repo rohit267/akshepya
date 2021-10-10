@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Center, Container, Flex, Text } from '@chakra-ui/layout';
-import Logo from '../Logo'
+import Logo from '../Logo/index'
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input';
 import { Button } from '@chakra-ui/button';
 import { FaUser } from 'react-icons/fa';
@@ -84,7 +84,7 @@ function Index(props) {
                     <Box /*backgroundColor='#f9f9f9'*/ mt='16' pt='5' pl='2' pr='2' pb='6' boxSize='lg' height='auto' border='1px solid #e3e3e3' borderRadius='8px'>
                         <Box>
                             <Center>
-                                <Logo />
+                                <Logo width="75%" />
                             </Center>
                             <Center mt='4'>
                                 <Text fontSize='24px' fontWeight='semibold'>Signup</Text>
