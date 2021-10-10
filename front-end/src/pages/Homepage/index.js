@@ -7,6 +7,7 @@ import { FaComments, FaEye } from 'react-icons/fa';
 import Layout from '../../components/Layout';
 import QuestionTile from '../../components/QuestionTile';
 import { BiTime } from 'react-icons/bi';
+import { useHistory } from 'react-router';
 
 let dummyQuestions = [
   {
@@ -114,13 +115,14 @@ let dummyQuestions = [
 
 function Index(props) {
   const user = useSelector(state => state.auth);
+  const history = useHistory();
 
   return (
     <Layout>
       {user.isLoggedIn && (
         <Box display="flex" flexDirection="row" justifyContent="flex-end">
           <Button
-            onClick={() => console.log('click')}
+            onClick={() => history.push("/new")}
             leftIcon={<AiOutlinePlus />}
             variant="solid"
             justifyContent="center"
