@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Homepage from './pages/Homepage';
 import LoginPage from './pages/Auth';
+import NewTopic from './pages/NewTopic';
 import { useDispatch } from 'react-redux'
 import SecureStorage from './utility/secureStorage';
 import { loginFromRefreshToken } from './controllers/auth'
@@ -30,6 +31,9 @@ function App() {
                 <Switch>
                     <Route path="/login">
                         <LoginPage />
+                    </Route>
+                    <Route exact path="/new">
+                        <NewTopic />
                     </Route>
                     <Route exact path="/">
                         <Homepage />
