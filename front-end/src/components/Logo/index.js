@@ -1,10 +1,12 @@
 import React from 'react';
-import { Heading } from '@chakra-ui/react';
+import logo from "./Shepya.png"
+
 
 function index(props) {
     return (
-        <Heading fontSize='24px' fontWeight='semibold' size='md' color='cyan.600' >AkSepya</Heading>
-    );
+        <img src={logo} style={{width:props.width,padding:"0"}}></img>
+
+       );
 }
 
 export default index;
