@@ -1,19 +1,35 @@
-import React from "react";
+import React, {useState} from "react";
 import Layout from "../../components/Layout";
-import { Input } from "@chakra-ui/react";
-import { Container,Center} from '@chakra-ui/layout';
+import {Divider, Input} from "@chakra-ui/react";
+import {Box, Center, Container} from '@chakra-ui/layout';
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; 
-function NewTopic(props){
-    return(
-      <Layout>
-          <Container>
-              <Center mt='16' pt='5' pl='50' pr='2' pb='6' boxSize='lg' height='auto'  borderRadius='8px'>
-                <Input placeholder="Enter your questions" size="lg" width="100%" />
-              </Center>
+import Editor from 'react-quill'
+import 'react-quill/dist/quill.snow.css';
 
-          </Container>
-      </Layout>
+function NewTopic(props) {
+
+    const [description, setDescription] = useState("");
+
+    function handleDescription(value) {
+        setDescription(value);
+    }
+
+    return (
+        <Layout>
+            <Container>
+                <Center mt='16' boxSize='xlg' height='auto'>
+                    <Box>
+                        <Input placeholder="Enter your questions" size="lg" width="100%"/>
+                        <Divider />
+                        <ReactQuill
+                            value={description}
+                            onChange={handleDescription}
+                        />
+                    </Box>
+                </Center>
+
+            </Container>
+        </Layout>
     );
 }
 
