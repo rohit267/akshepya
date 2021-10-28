@@ -2,11 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0fd0ab88-bf26-4357-9e0d-cdbbbd3273e9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/front-end/src/components/AskQuestionBox/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/components/RecentAksed/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/middlewears/Auth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/Question.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/Question.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utility/keys.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/Homepage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/Homepage/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/src/pages/NewTopic/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/NewTopic/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/Question/index.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,13 +58,16 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -87,7 +98,10 @@
       <updated>1631415066605</updated>
       <workItem from="1631415071083" duration="1884000" />
       <workItem from="1633265672535" duration="5499000" />
-      <workItem from="1634632281714" duration="1404000" />
+      <workItem from="1634632281714" duration="1636000" />
+      <workItem from="1635078856399" duration="3816000" />
+      <workItem from="1635436173094" duration="579000" />
+      <workItem from="1635437184010" duration="4691000" />
     </task>
     <servers />
   </component>

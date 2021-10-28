@@ -11,12 +11,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 const authRoute = require('./routes/Auth');
-
+const questionRoute = require('./routes/Question');
 //static serve
 app.use(express.static(path.join(__dirname, "build")));
 app.use("/avatars", express.static(__dirname + '/avatars'));
 //Auth route
 app.use('/auth', authRoute);
+//Question route
+app.use('/question', questionRoute);
 
 app.listen(PORT, () => {
     console.log("\n<================================>");

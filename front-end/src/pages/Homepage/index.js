@@ -9,6 +9,67 @@ import QuestionTile from '../../components/QuestionTile';
 import { BiTime } from 'react-icons/bi';
 import { useHistory } from 'react-router';
 
+function Index(props) {
+  const user = useSelector(state => state.auth);
+  const history = useHistory();
+
+  return (
+    <Layout>
+      {user.isLoggedIn && (
+        <Box display="flex" flexDirection="row" justifyContent="flex-end">
+          <Button
+            onClick={() => history.push("/new")}
+            leftIcon={<AiOutlinePlus />}
+            variant="solid"
+            justifyContent="center"
+            borderRadius="20"
+            mr="5"
+            mt="5">
+            New Topic
+          </Button>
+        </Box>
+      )}
+      <Container maxW="container.lg">
+        <Box
+          p="8px"
+          borderBottom="1px solid #aadbe2"
+          display="flex"
+          justifyContent="space-between"
+          overflow="auto">
+          <Box display="inline" minWidth="250px" maxWidth="600px">
+            <Text cursor="pointer" fontSize="18px" fontWeight="semibold">
+              Topic
+            </Text>
+          </Box>
+          <Spacer />
+          <Flex w="160px">
+            <Box>
+              <FaComments />
+            </Box>
+            <Box ml="8">
+              <FaEye />
+            </Box>
+            <Box ml="50px">
+              <BiTime />
+            </Box>
+          </Flex>
+        </Box>
+        {dummyQuestions.map((d, i) => (
+          <QuestionTile
+            key={i}
+            question={d.question}
+            category={d.category}
+            commenters={d.commenters}
+            noOfComments={d.noOfComments}
+            views={d.views}
+            timeAgo={d.timeAgo}
+          />
+        ))}
+      </Container>
+    </Layout>
+  );
+}
+
 let dummyQuestions = [
   {
     question: 'repurpose 24/7 applications',
@@ -112,66 +173,5 @@ let dummyQuestions = [
     timeAgo: '7:25 PM',
   },
 ];
-
-function Index(props) {
-  const user = useSelector(state => state.auth);
-  const history = useHistory();
-
-  return (
-    <Layout>
-      {user.isLoggedIn && (
-        <Box display="flex" flexDirection="row" justifyContent="flex-end">
-          <Button
-            onClick={() => history.push("/new")}
-            leftIcon={<AiOutlinePlus />}
-            variant="solid"
-            justifyContent="center"
-            borderRadius="20"
-            mr="5"
-            mt="5">
-            New Topic
-          </Button>
-        </Box>
-      )}
-      <Container maxW="container.lg">
-        <Box
-          p="8px"
-          borderBottom="1px solid #aadbe2"
-          display="flex"
-          justifyContent="space-between"
-          overflow="auto">
-          <Box display="inline" minWidth="250px" maxWidth="600px">
-            <Text cursor="pointer" fontSize="18px" fontWeight="semibold">
-              Topic
-            </Text>
-          </Box>
-          <Spacer />
-          <Flex w="160px">
-            <Box>
-              <FaComments />
-            </Box>
-            <Box ml="8">
-              <FaEye />
-            </Box>
-            <Box ml="50px">
-              <BiTime />
-            </Box>
-          </Flex>
-        </Box>
-        {dummyQuestions.map((d, i) => (
-          <QuestionTile
-            key={i}
-            question={d.question}
-            category={d.category}
-            commenters={d.commenters}
-            noOfComments={d.noOfComments}
-            views={d.views}
-            timeAgo={d.timeAgo}
-          />
-        ))}
-      </Container>
-    </Layout>
-  );
-}
 
 export default Index;

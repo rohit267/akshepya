@@ -1,36 +1,56 @@
 import React, {useState} from "react";
 import Layout from "../../components/Layout";
-import {Divider, Input} from "@chakra-ui/react";
-import {Box, Center, Container} from '@chakra-ui/layout';
-import ReactQuill from 'react-quill';
-import Editor from 'react-quill'
-import 'react-quill/dist/quill.snow.css';
+import {Input, useMediaQuery} from "@chakra-ui/react";
+import {Badge, Box,} from '@chakra-ui/layout';
+import AskQuestionBox from '../../components/AskQuestionBox';
+import RecentAsked from "../../components/RecentAksed";
+
 
 function NewTopic(props) {
 
     const [description, setDescription] = useState("");
-
-    function handleDescription(value) {
-        setDescription(value);
-    }
+    const [isSmallerScreen] = useMediaQuery("(max-width: 720px)");
 
     return (
         <Layout>
-            <Container>
-                <Center mt='16' boxSize='xlg' height='auto'>
-                    <Box>
-                        <Input placeholder="Enter your questions" size="lg" width="100%"/>
-                        <Divider />
-                        <ReactQuill
-                            value={description}
-                            onChange={handleDescription}
-                        />
-                    </Box>
-                </Center>
-
-            </Container>
+            <Box d={"flex"} mt={6} ml={6} mr={6} justifyContent={"space-evenly"}>
+                <AskQuestionBox isSmallerScreen={isSmallerScreen} desctiption={description} handleDescription={setDescription} />
+                <RecentAsked isSmallerScreen={isSmallerScreen} recents={Recent} />
+            </Box>
         </Layout>
     );
 }
+
+function generateRandomNumber() {
+    return Math.floor(Math.random() * 1000000);
+}
+
+
+const Recent= [
+    {
+        id: generateRandomNumber(),
+        topic: "This is topic one",
+    },
+    {
+        id: generateRandomNumber(),
+        topic: "This is topic one",
+    },
+    {
+        id: generateRandomNumber(),
+        topic: "This is topic one",
+    },
+    {
+        id: generateRandomNumber(),
+        topic: "This is topic one",
+    },
+    {
+        id: generateRandomNumber(),
+        topic: "This is topic one",
+    }
+
+];
+
+
+
 
 export default NewTopic;
