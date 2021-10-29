@@ -18,7 +18,7 @@ app.use("/avatars", express.static(__dirname + '/avatars'));
 //Auth route
 app.use('/auth', authRoute);
 //Question route
-app.use('/question', questionRoute);
+app.use('/api/question', questionRoute);
 
 app.listen(PORT, () => {
     console.log("\n<================================>");

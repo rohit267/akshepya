@@ -2,19 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0fd0ab88-bf26-4357-9e0d-cdbbbd3273e9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/front-end/src/components/AskQuestionBox/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/components/RecentAksed/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/middlewears/Auth.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/Question.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/Question.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utility/keys.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/controllers/question.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/pages/Homepage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/Homepage/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/AskQuestionBox/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/AskQuestionBox/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/configs/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/configs/api.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/src/pages/NewTopic/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/NewTopic/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/pages/Question/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/middlewears/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/middlewears/Auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/Question.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/Question.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +96,8 @@
       <workItem from="1634632281714" duration="1636000" />
       <workItem from="1635078856399" duration="3816000" />
       <workItem from="1635436173094" duration="579000" />
-      <workItem from="1635437184010" duration="4691000" />
+      <workItem from="1635437184010" duration="4927000" />
+      <workItem from="1635518706989" duration="4657000" />
     </task>
     <servers />
   </component>

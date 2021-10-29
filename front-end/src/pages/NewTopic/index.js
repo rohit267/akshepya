@@ -1,20 +1,29 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Layout from "../../components/Layout";
-import {Input, useMediaQuery} from "@chakra-ui/react";
-import {Badge, Box,} from '@chakra-ui/layout';
+import { useMediaQuery} from "@chakra-ui/react";
+import { Box,} from '@chakra-ui/layout';
 import AskQuestionBox from '../../components/AskQuestionBox';
 import RecentAsked from "../../components/RecentAksed";
+import {useSelector} from "react-redux";
+import {useHistory} from "react-router-dom";
 
 
 function NewTopic(props) {
-
-    const [description, setDescription] = useState("");
+    // const authData = useSelector((state)=>state.auth);
     const [isSmallerScreen] = useMediaQuery("(max-width: 720px)");
+    const history = useHistory();
+
+    //
+    // useEffect(()=>{
+    //     if(!authData.isLoggedIn){
+    //         history.push("/login");
+    //     }
+    // },[]);
 
     return (
         <Layout>
             <Box d={"flex"} mt={6} ml={6} mr={6} justifyContent={"space-evenly"}>
-                <AskQuestionBox isSmallerScreen={isSmallerScreen} desctiption={description} handleDescription={setDescription} />
+                <AskQuestionBox isSmallerScreen={isSmallerScreen} />
                 <RecentAsked isSmallerScreen={isSmallerScreen} recents={Recent} />
             </Box>
         </Layout>

@@ -10,6 +10,7 @@ const isAuth = (req, res, next) => {
     //verify jwt token using process.env.JWT_KEY
     jwt.verify(bearerToken, process.env.JWT_KEY, (err, authData) => {
       if (err) {
+        // console.log(err);
         res.status(403).json({
           message: "Forbidden"
         });
